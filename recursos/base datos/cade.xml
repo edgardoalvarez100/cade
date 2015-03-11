@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?><Db flnm="cade" nm="cade" ver="1.3.4">
+  <VerLbl/>
+  <VerNotes/>
+  <DefTblOpts/>
+  <DocFolder>D:\Documents\NetBeansProjects\CADE\recursos\base datos</DocFolder>
+  <Sch Cm="" nm="system">
+    <Tbl UsSo="1" nm="categorias">
+      <TblOpts/>
+      <Pk ClNs="idcategoria" nm="pkcategorias"/>
+      <Cl au="1" df="" nm="idcategoria" nu="0">
+        <DT arr="0" ds="Number" en="" id="780" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="categoria" nu="0">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="20" sc="null" sg="1" un="0"/>
+      </Cl>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="categoriasempleados">
+      <TblOpts/>
+      <Pk ClNs="idcategoria, idusuario" nm="pkcategoriasempleados"/>
+      <Cl au="0" df="" nm="idcategoria" nu="0">
+        <DT arr="0" ds="Number" en="" id="780" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="idusuario" nu="0">
+        <DT arr="0" ds="Number" en="" id="780" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_categoriasempleados_categorias" prLkCl="idcategoria" upAc="3">
+        <PrTb mn="0" nm="categorias" oe="1" sch="system" zr="0"/>
+        <CdTb mn="1" nm="categoriasempleados" oe="0" sch="system" zr="1"/>
+        <ClPr cdCl="idcategoria" prCl="idcategoria"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_categoriasempleados_usuarios" prLkCl="idusuario" upAc="3">
+        <PrTb mn="0" nm="usuarios" oe="1" sch="system" zr="0"/>
+        <CdTb mn="1" nm="categoriasempleados" oe="0" sch="system" zr="1"/>
+        <ClPr cdCl="idusuario" prCl="idusuario"/>
+      </Fk>
+      <Idx clu="0" nm="fk_categoriasempleados_categorias" unq="0">
+        <ClNs>idcategoria</ClNs>
+      </Idx>
+      <Idx clu="0" nm="fk_categoriasempleados_usuarios" unq="0">
+        <ClNs>idusuario</ClNs>
+      </Idx>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="estadotickets">
+      <TblOpts/>
+      <Pk ClNs="idestado" nm="pkestadotickets"/>
+      <Cl au="1" df="" nm="idestado" nu="0">
+        <DT arr="0" ds="Number" en="" id="780" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="estado" nu="0">
+        <DT arr="0" ds="VarChar2" en="" id="781" ln="20" sc="null" sg="1" un="0"/>
+      </Cl>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="respuestas">
+      <TblOpts/>
+      <Pk ClNs="idrespuesta" nm="pkrespuestas"/>
+      <Cl au="1" df="" nm="idrespuesta" nu="0">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="respuesta" nu="0">
+        <DT arr="0" ds="Text" en="" id="703" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="idusuario" nu="0">
+        <DT arr="0" ds="Number" en="" id="780" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="fecha" nu="0">
+        <DT arr="0" ds="Date" en="" id="91" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="idticket" nu="0">
+        <DT arr="0" ds="Number" en="" id="780" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_respuestas_tickets" prLkCl="idticket" upAc="3">
+        <PrTb mn="0" nm="tickets" oe="1" sch="system" zr="0"/>
+        <CdTb mn="1" nm="respuestas" oe="0" sch="system" zr="1"/>
+        <ClPr cdCl="idticket" prCl="idticket"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_respuestas_usuarios" prLkCl="idusuario" upAc="3">
+        <PrTb mn="0" nm="usuarios" oe="1" sch="system" zr="0"/>
+        <CdTb mn="1" nm="respuestas" oe="0" sch="system" zr="1"/>
+        <ClPr cdCl="idusuario" prCl="idusuario"/>
+      </Fk>
+      <Idx clu="0" nm="fk_respuestas_tickets" unq="0">
+        <ClNs>idticket</ClNs>
+      </Idx>
+      <Idx clu="0" nm="fk_respuestas_usuarios" unq="0">
+        <ClNs>idusuario</ClNs>
+      </Idx>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="tickets">
+      <TblOpts/>
+      <Pk ClNs="idticket" nm="pktickets"/>
+      <Cl au="1" df="" nm="idticket" nu="0">
+        <DT arr="0" ds="Number" en="" id="780" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="idusuario" nu="0">
+        <DT arr="0" ds="Number" en="" id="780" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="idcategoria" nu="0">
+        <DT arr="0" ds="Number" en="" id="780" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="fecha" nu="0">
+        <DT arr="0" ds="Date" en="" id="91" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="idestado" nu="1">
+        <DT arr="0" ds="Number" en="" id="780" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="asunto" nu="1">
+        <DT arr="0" ds="Text" en="" id="703" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_tickets_categorias" prLkCl="idcategoria" upAc="3">
+        <PrTb mn="0" nm="categorias" oe="1" sch="system" zr="0"/>
+        <CdTb mn="1" nm="tickets" oe="0" sch="system" zr="1"/>
+        <ClPr cdCl="idcategoria" prCl="idcategoria"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_tickets_estadotickets" prLkCl="idestado" upAc="3">
+        <PrTb mn="0" nm="estadotickets" oe="1" sch="system" zr="0"/>
+        <CdTb mn="1" nm="tickets" oe="0" sch="system" zr="1"/>
+        <ClPr cdCl="idestado" prCl="idestado"/>
+      </Fk>
+      <Fk deAc="3" nm="fk_tickets_usuarios" prLkCl="idusuario" upAc="3">
+        <PrTb mn="0" nm="usuarios" oe="1" sch="system" zr="0"/>
+        <CdTb mn="1" nm="tickets" oe="0" sch="system" zr="1"/>
+        <ClPr cdCl="idusuario" prCl="idusuario"/>
+      </Fk>
+      <Idx clu="0" nm="fk_tickets_categorias" unq="0">
+        <ClNs>idcategoria</ClNs>
+      </Idx>
+      <Idx clu="0" nm="fk_tickets_estadotickets" unq="0">
+        <ClNs>idestado</ClNs>
+      </Idx>
+      <Idx clu="0" nm="fk_tickets_usuarios" unq="0">
+        <ClNs>idusuario</ClNs>
+      </Idx>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="tipousuario">
+      <TblOpts/>
+      <Pk ClNs="idtipo" nm="pktipousuario"/>
+      <Cl au="1" df="" nm="idtipo" nu="0">
+        <DT arr="0" ds="Number" en="" id="780" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="tipousuario" nu="0">
+        <DT arr="0" ds="VarChar2" en="" id="781" ln="20" sc="null" sg="1" un="0"/>
+      </Cl>
+      <SchTrHis/>
+    </Tbl>
+    <Tbl UsSo="1" nm="usuarios">
+      <TblOpts/>
+      <Pk ClNs="idusuario" nm="pkusuarios"/>
+      <Cl au="1" df="" nm="idusuario" nu="0">
+        <DT arr="0" ds="Number" en="" id="780" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="nombre" nu="0">
+        <DT arr="0" ds="VarChar2" en="" id="781" ln="20" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="apellidos" nu="0">
+        <DT arr="0" ds="VarChar2" en="" id="781" ln="60" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="correo" nu="0">
+        <DT arr="0" ds="VarChar2" en="" id="781" ln="70" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="password" nu="0">
+        <DT arr="0" ds="VarChar2" en="" id="781" ln="60" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="direccion" nu="0">
+        <DT arr="0" ds="VarChar2" en="" id="781" ln="30" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="telefono" nu="0">
+        <DT arr="0" ds="VarChar2" en="" id="781" ln="20" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="idtipo" nu="0">
+        <DT arr="0" ds="Number" en="" id="780" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="ciudad" nu="0">
+        <DT arr="0" ds="VarChar2" en="" id="781" ln="20" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="activo" nu="0">
+        <DT arr="0" ds="Number" en="" id="780" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="cedula" nu="0">
+        <DT arr="0" ds="VarChar2" en="" id="781" ln="20" sc="null" sg="1" un="1"/>
+      </Cl>
+      <Fk deAc="3" nm="fk_usuarios_tipousuario" prLkCl="idtipo" upAc="3">
+        <PrTb mn="0" nm="tipousuario" oe="1" sch="system" zr="0"/>
+        <CdTb mn="1" nm="usuarios" oe="0" sch="system" zr="1"/>
+        <ClPr cdCl="idtipo" prCl="idtipo"/>
+      </Fk>
+      <Idx clu="0" nm="fk_usuarios_tipousuario" unq="0">
+        <ClNs>idtipo</ClNs>
+      </Idx>
+      <Idx clu="0" nm="unico_cedula" unq="1">
+        <ClNs>cedula</ClNs>
+      </Idx>
+      <SchTrHis/>
+    </Tbl>
+    <CustomTypes/>
+  </Sch>
+  <Dgm nm="diagramA">
+    <RnCf FtSz="9" lkStgy="OffsetDirect" zm="1.0">
+      <VbCfg>
+        <Fg ky="Auto Number" vl="0"/>
+        <Fg ky="Check" vl="0"/>
+        <Fg ky="Comment" vl="0"/>
+        <Fg ky="Data Type" vl="1"/>
+        <Fg ky="Default" vl="0"/>
+        <Fg ky="ENUM Values" vl="0"/>
+        <Fg ky="Length" vl="1"/>
+        <Fg ky="Name" vl="1"/>
+        <Fg ky="Nullable" vl="0"/>
+        <Fg ky="Schema Name" vl="0"/>
+        <Fg ky="Signed" vl="0"/>
+      </VbCfg>
+    </RnCf>
+    <DiaProps>
+      <Show AllCols="1" FkCols="1" FkNms="1" PkCols="1"/>
+      <ErNotation>DbwErNotation</ErNotation>
+      <svg path=""/>
+    </DiaProps>
+    <TbGl bkCl="ffccccff" sch="system" tbl="categorias" x="635" y="127"/>
+    <TbGl bkCl="ffccccff" sch="system" tbl="categoriasempleados" x="346" y="206"/>
+    <TbGl bkCl="ffccccff" sch="system" tbl="estadotickets" x="543" y="46"/>
+    <TbGl bkCl="ffccccff" sch="system" tbl="respuestas" x="34" y="62"/>
+    <TbGl bkCl="ffccccff" sch="system" tbl="tickets" x="282" y="43"/>
+    <TbGl bkCl="ffccccff" sch="system" tbl="tipousuario" x="352" y="330"/>
+    <TbGl bkCl="ffccccff" sch="system" tbl="usuarios" x="48" y="266"/>
+    <FkGl bkCl="ff000000" nm="system.categoriasempleados.fk_categoriasempleados_categorias"/>
+    <FkGl bkCl="ff000000" nm="system.categoriasempleados.fk_categoriasempleados_usuarios"/>
+    <FkGl bkCl="ff000000" nm="system.respuestas.fk_respuestas_tickets"/>
+    <FkGl bkCl="ff000000" nm="system.respuestas.fk_respuestas_usuarios"/>
+    <FkGl bkCl="ff000000" nm="system.tickets.fk_tickets_categorias"/>
+    <FkGl bkCl="ff000000" nm="system.tickets.fk_tickets_estadotickets"/>
+    <FkGl bkCl="ff000000" nm="system.tickets.fk_tickets_usuarios"/>
+    <FkGl bkCl="ff000000" nm="system.usuarios.fk_usuarios_tipousuario"/>
+    <Notes/>
+    <Zones/>
+  </Dgm>
+  <RnmMgr NxRnmId="2">
+    <RnmCh ObjCls="Schema" ParCls="Database" ParNme="cade" SupCls="" SupNme="">
+      <Rnm id="1" nNm="system" oNm="schemaA"/>
+    </RnmCh>
+  </RnmMgr>
+  <DbDocOptionMgr>
+    <BasicOptionMgr>
+      <Name>db.doc.option.mgr</Name>
+      <BoolOpt lbl="Diagrams" nm="doc.diagrams" on="1" spl="0"/>
+      <BoolOpt lbl="Foreign Keys" nm="doc.fks" on="1" spl="0"/>
+      <BoolOpt lbl="Indexes" nm="doc.indexes" on="1" spl="0"/>
+      <BoolOpt lbl="Overwrite CSS File" nm="doc.overwrite.css" on="1" spl="0"/>
+      <BoolOpt lbl="Procedures" nm="doc.procs" on="1" spl="0"/>
+      <BoolOpt lbl="Schemas" nm="doc.schemas" on="1" spl="0"/>
+      <BoolOpt lbl="Sequences" nm="doc.sequences" on="1" spl="0"/>
+      <BoolOpt lbl="Tables" nm="doc.tables" on="1" spl="0"/>
+      <BoolOpt lbl="Triggers" nm="doc.triggers" on="1" spl="0"/>
+      <BoolOpt lbl="Views" nm="doc.views" on="1" spl="0"/>
+    </BasicOptionMgr>
+  </DbDocOptionMgr>
+  <OpenEditors>
+    <OpenEditor ClsNm="Diagram" fqn="null.diagramA" selected="1"/>
+  </OpenEditors>
+  <TreePaths>
+    <TreePath/>
+    <TreePath>/Schemas (1)</TreePath>
+    <TreePath>/Schemas (1)/system</TreePath>
+    <TreePath>/Schemas (1)/system/Tables (7)</TreePath>
+    <TreePath>/Schemas (1)/system/Views (0)</TreePath>
+    <TreePath>/Schemas (1)/system/Procedures (0)</TreePath>
+  </TreePaths>
+</Db>

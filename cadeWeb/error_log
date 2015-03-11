@@ -1,0 +1,4 @@
+[30-Dec-2014 14:03:41 America/Bogota] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, boolean given in /home/probando/public_html/cade/administrador/dologin.php on line 15
+[30-Dec-2014 14:03:41 America/Bogota] PHP Warning:  mysql_num_rows() expects parameter 1 to be resource, boolean given in /home/probando/public_html/cade/administrador/dologin.php on line 18
+[30-Dec-2014 14:04:08 America/Bogota] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, boolean given in /home/probando/public_html/cade/administrador/dologin.php on line 15
+[30-Dec-2014 14:04:08 America/Bogota] PHP Warning:  mysql_num_rows() expects parameter 1 to be resource, boolean given in /home/probando/public_html/cade/administrador/dologin.php on line 18
