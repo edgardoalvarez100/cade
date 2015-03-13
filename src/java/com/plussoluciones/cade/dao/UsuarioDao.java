@@ -3,6 +3,7 @@ package com.plussoluciones.cade.dao;
 import com.plussoluciones.cade.bean.Categoria;
 import com.plussoluciones.cade.bean.Usuario;
 import com.plussoluciones.cade.conexion.ConexionOracle;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -63,24 +64,24 @@ public class UsuarioDao extends ConexionOracle {
 
     public String registrar(Usuario usuario) throws SQLException {
 
-        String sql = "insert into usuarios values(inc_usuario_pk.NextVal,?,?,?,?,?,?,?,?,?,?)";
-        PreparedStatement ps = null;
-        ResultSet rs = null;
+        String sql = "{call REGISTRARUSUARIO(?,?,?,?,?,?,?,?,?,?,?)}";
+        CallableStatement cst = null;        
         try {
             conexion = conectar();
-            ps = conexion.prepareStatement(sql);
-            ps.setString(1, usuario.getNombre());
-            ps.setString(2, usuario.getApellidos());
-            ps.setString(3, usuario.getCorreo());
-            ps.setString(4, usuario.getPassword());
-            ps.setString(5, usuario.getDireccion());
-            ps.setString(6, usuario.getTelefono());
-            ps.setInt(7, 3);
-            ps.setString(8, usuario.getCiudad());
-            ps.setInt(9, 1);
-            ps.setString(10, usuario.getCedula());
-
-            int respuesta = ps.executeUpdate();
+            cst = conexion.prepareCall(sql);
+            cst.registerOutParameter(11, java.sql.Types.INTEGER);
+            cst.setString(1, usuario.getNombre());
+            cst.setString(2, usuario.getApellidos());
+            cst.setString(3, usuario.getCorreo());
+            cst.setString(4, usuario.getPassword());
+            cst.setString(5, usuario.getDireccion());
+            cst.setString(6, usuario.getTelefono());
+            cst.setInt(7, 3);
+            cst.setString(8, usuario.getCiudad());
+            cst.setInt(9, 1);
+            cst.setString(10, usuario.getCedula());
+            cst.executeUpdate();
+            int respuesta = cst.getInt(11);
 
             if (respuesta == 1) {
                 return "TRUE";
@@ -91,14 +92,11 @@ public class UsuarioDao extends ConexionOracle {
         } catch (Exception ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            if (ps != null) {
-                ps.close();
+            if (cst != null) {
+                cst.close();
             }
-            if (rs != null) {
-                rs.close();
-            }
+           
             conexion.close();
-
         }
         return "FALSE";
     }
