@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import oracle.jdbc.OracleTypes;
+import oracle.jdbc.OracleCallableStatement;
+
 /**
  *
  * @author EAlvarez
@@ -65,7 +68,7 @@ public class UsuarioDao extends ConexionOracle {
     public String registrar(Usuario usuario) throws SQLException {
 
         String sql = "{call REGISTRARUSUARIO(?,?,?,?,?,?,?,?,?,?,?)}";
-        CallableStatement cst = null;        
+        CallableStatement cst = null;
         try {
             conexion = conectar();
             cst = conexion.prepareCall(sql);
@@ -95,7 +98,7 @@ public class UsuarioDao extends ConexionOracle {
             if (cst != null) {
                 cst.close();
             }
-           
+
             conexion.close();
         }
         return "FALSE";
@@ -105,14 +108,18 @@ public class UsuarioDao extends ConexionOracle {
         List<Usuario> listaUsuarios;
         listaUsuarios = new ArrayList<>();
 
-        String sql = "SELECT * FROM usuarios u INNER JOIN tipousuario t ON u.idtipo=t.idtipo WHERE activo=1";
+        StringBuilder sql = new StringBuilder();
+        sql.append("{call OBTENERUSUARIOS(?)}");
 
-        PreparedStatement ps = null;
+        CallableStatement cst = null;        
         ResultSet rs = null;
         try {
             conexion = conectar();
-            ps = conexion.prepareStatement(sql);
-            rs = ps.executeQuery();
+          
+            cst = conexion.prepareCall(sql.toString());
+            cst.registerOutParameter(1, OracleTypes.CURSOR);
+            cst.execute();
+            rs=((OracleCallableStatement)cst).getCursor(1);
 
             while (rs.next()) {
                 Usuario usuario = new Usuario();
@@ -130,9 +137,7 @@ public class UsuarioDao extends ConexionOracle {
         } catch (Exception ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            if (ps != null) {
-                ps.close();
-            }
+           
             if (rs != null) {
                 rs.close();
             }
@@ -387,7 +392,7 @@ public class UsuarioDao extends ConexionOracle {
     public String validarUsuarioEmpleado(String cedula) throws SQLException {
         String sql = "SELECT * from usuarios u "
                 + "inner join tipousuario tu on u.idtipo=tu.idtipo "
-                + "where activo=1 and tu.tipousuario='empleado' and u.cedula='"+cedula+"'";
+                + "where activo=1 and tu.tipousuario='empleado' and u.cedula='" + cedula + "'";
         int valido = 0;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -401,7 +406,7 @@ public class UsuarioDao extends ConexionOracle {
             }
             if (valido == 1) {
                 return "OK";
-            }else{
+            } else {
                 return "NO";
             }
 
