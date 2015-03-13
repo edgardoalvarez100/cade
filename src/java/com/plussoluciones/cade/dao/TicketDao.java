@@ -3,7 +3,6 @@ package com.plussoluciones.cade.dao;
 import com.plussoluciones.cade.conexion.ConexionOracle;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +20,7 @@ public class TicketDao extends ConexionOracle {
         String sql = "{call CREARTICKET(?,?,?,?,?)}";
         CallableStatement cst = null;
         try {
-            conexion = conectar();  
+            conexion = conectar();
             cst = conexion.prepareCall(sql);
             cst.registerOutParameter(5, java.sql.Types.INTEGER);
             cst.setInt(1, idUsuario);
@@ -39,7 +38,7 @@ public class TicketDao extends ConexionOracle {
         } catch (Exception ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            if (cst!= null) {
+            if (cst != null) {
                 cst.close();
             }
             conexion.close();
@@ -48,14 +47,14 @@ public class TicketDao extends ConexionOracle {
     }
 
     public String responderTicket(String mensaje, int idUsuario, int idTicket) throws SQLException {
-         String sql = "{call RESPONDERTICKET(?,?,?,?)}";
+        String sql = "{call RESPONDERTICKET(?,?,?,?)}";
         CallableStatement cst = null;
         try {
-            conexion = conectar();  
+            conexion = conectar();
             cst = conexion.prepareCall(sql);
             cst.registerOutParameter(4, java.sql.Types.INTEGER);
             cst.setInt(2, idUsuario);
-            cst.setInt(3, idTicket);            
+            cst.setInt(3, idTicket);
             cst.setString(1, mensaje);
             cst.executeUpdate();
             int res = cst.getInt(4);
@@ -68,7 +67,7 @@ public class TicketDao extends ConexionOracle {
         } catch (Exception ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            if (cst!= null) {
+            if (cst != null) {
                 cst.close();
             }
             conexion.close();
@@ -76,8 +75,30 @@ public class TicketDao extends ConexionOracle {
         return "FALSE";
     }
 
-    public String cerrarTicket() {
-        return null;
+    public String cerrarTicket(int idTicket) throws SQLException {
+        String sql = "{call CERRARTICKET(?,?)}";
+        CallableStatement cst = null;
+        try {
+            conexion = conectar();
+            cst = conexion.prepareCall(sql);
+            cst.registerOutParameter(2, java.sql.Types.INTEGER);
+            cst.setInt(1, idTicket);
+            cst.executeUpdate();
+            int res = cst.getInt(2);
+            if (res == 0) {
+                return "FALSE";
+            } else {
+                return "TRUE";
+            }
 
+        } catch (Exception ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (cst != null) {
+                cst.close();
+            }
+            conexion.close();
+        }
+        return "FALSE";
     }
 }

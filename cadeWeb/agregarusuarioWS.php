@@ -2,7 +2,7 @@
 
 include("listaWS.php");
 
-
+$client = cargarServicio("usuario");
 $err = $client->getError();
 if ($err) {
     echo 'Error en Constructor ' . $err;
@@ -24,13 +24,11 @@ $usuario = array('nombre' => $nombre, 'apellidos' =>$apellido, 'correo'=>$correo
 	'telefono'=>$telefono, 'tipo'=>$tipo, 'ciudad'=>$ciudad, 'activo'=>$activo, 'cedula'=>$cedula);
 $param = array('usuario' => $usuario);
 $resultado=$client->call('registrar',$param);
-print_r($resultado);
+ $fila = $resultado['return'];
+ if ($fila <> "FALSE") {
+ 	echo "<script type='text/javascript'>alert('Registrado Exitosamente!'); location.href='index.php'; </script>";
+ }else{
+ 	echo "<script type='text/javascript'>alert('Error registrando!');  </script>";
+ }
 
-
-
-//if (mysql_error() == "") {
- //   echo "<script type='text/javascript'>alert('Registrado Exitosamente!'); location.href='index.php'; </script>";
-//} else {
- //   echo "<script type='text/javascript'>alert('Error registrando!');  </script>";
-//}
 ?>

@@ -1,5 +1,5 @@
 <?php
-include("../../basedatos/conectarbd.php"); 
+include("../basedatos/conectarbd.php"); 
 session_start();
 if(!isset($_SESSION["tipoUsuario"])){
 	

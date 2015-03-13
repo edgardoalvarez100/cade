@@ -39,4 +39,13 @@ public class TicketService {
         }
         return null;
     }
+    @WebMethod(operationName = "cerrarTicket")
+    public String cerrarTicket(@WebParam(name = "idTicket") int idTicket) {
+         try {
+            return ticketDao.cerrarTicket(idTicket);
+        } catch (SQLException ex) {
+            Logger.getLogger(TicketService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }
