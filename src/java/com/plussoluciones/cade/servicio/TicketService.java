@@ -1,5 +1,6 @@
 package com.plussoluciones.cade.servicio;
 
+import com.plussoluciones.cade.bean.Ticket;
 import com.plussoluciones.cade.dao.TicketDao;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -30,19 +31,30 @@ public class TicketService {
         }
         return null;
     }
+
     @WebMethod(operationName = "responderTicket")
     public String responderTicket(@WebParam(name = "mensaje") String mensaje, @WebParam(name = "idUsuario") int idUsuario, @WebParam(name = "idTicket") int idTicket) {
-         try {
+        try {
             return ticketDao.responderTicket(mensaje, idUsuario, idTicket);
         } catch (SQLException ex) {
             Logger.getLogger(TicketService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
+
     @WebMethod(operationName = "cerrarTicket")
     public String cerrarTicket(@WebParam(name = "idTicket") int idTicket) {
-         try {
+        try {
             return ticketDao.cerrarTicket(idTicket);
+        } catch (SQLException ex) {
+            Logger.getLogger(TicketService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+@WebMethod(operationName = "obtenerTicketPorId")
+    public Ticket obtenerTicketPorId(@WebParam(name = "idTicket") int idTicket) {
+        try {
+            return ticketDao.obtenerTicketPorId(idTicket);
         } catch (SQLException ex) {
             Logger.getLogger(TicketService.class.getName()).log(Level.SEVERE, null, ex);
         }
