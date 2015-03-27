@@ -15,6 +15,7 @@ import com.sun.appserv.jdbc.DataSource;
 public class ConexionOracle {
 
     public synchronized Connection conectar() throws Exception {
+        System.out.println("Abriendo Conexion");
         String name = "jdbc/cade";
         Context ctx = null;
         DataSource ds = null;
@@ -34,6 +35,7 @@ public class ConexionOracle {
     }
 
     public synchronized void desconectarBD(Connection con) throws SQLException {
+        System.out.println("Cerrando Conexion");
         if (con != null) {
             con.close();
         }

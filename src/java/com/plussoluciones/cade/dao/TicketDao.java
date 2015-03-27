@@ -49,7 +49,7 @@ public class TicketDao extends ConexionOracle {
             if (cst != null) {
                 cst.close();
             }
-            conexion.close();
+            desconectarBD(conexion);
         }
         return "FALSE";
     }
@@ -78,7 +78,7 @@ public class TicketDao extends ConexionOracle {
             if (cst != null) {
                 cst.close();
             }
-            conexion.close();
+           desconectarBD(conexion);
         }
         return "FALSE";
     }
@@ -105,7 +105,7 @@ public class TicketDao extends ConexionOracle {
             if (cst != null) {
                 cst.close();
             }
-            conexion.close();
+            desconectarBD(conexion);
         }
         return "FALSE";
     }
@@ -139,7 +139,7 @@ public class TicketDao extends ConexionOracle {
             if (cst != null) {
                 cst.close();
             }
-            conexion.close();
+            desconectarBD(conexion);
         }
         return respuesta;
     }
@@ -175,7 +175,7 @@ public class TicketDao extends ConexionOracle {
             if (cst != null) {
                 cst.close();
             }
-            conexion.close();
+            desconectarBD(conexion);
         }
         return lista;
     }
