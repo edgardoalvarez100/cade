@@ -16,10 +16,6 @@ import java.util.logging.Logger;
 import oracle.jdbc.OracleTypes;
 import oracle.jdbc.OracleCallableStatement;
 
-/**
- *
- * @author EAlvarez
- */
 public class UsuarioDao extends ConexionOracle {
 
     Connection conexion;

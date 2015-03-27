@@ -1,11 +1,15 @@
 package com.plussoluciones.cade.dao;
 
+import com.plussoluciones.cade.bean.Ticket;
 import com.plussoluciones.cade.conexion.ConexionOracle;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import oracle.jdbc.OracleCallableStatement;
+import oracle.jdbc.OracleTypes;
 
 /**
  *
@@ -100,5 +104,32 @@ public class TicketDao extends ConexionOracle {
             conexion.close();
         }
         return "FALSE";
+    }
+
+    public Ticket obtenerTicketPorId(int idTicket) throws SQLException {
+        String sql = "{call ObtenerTicket(?,?)}";
+        CallableStatement cst = null;
+        ResultSet rs = null;
+        Ticket respuesta = new Ticket();
+        try {
+            conexion = conectar();
+            cst = conexion.prepareCall(sql);
+            cst.registerOutParameter(2, OracleTypes.CURSOR);
+            cst.setInt(1, idTicket);
+            cst.executeUpdate();
+            rs = ((OracleCallableStatement) cst).getCursor(1);
+            while (rs.next()) {
+                respuesta.setAsunto(rs.getString("asunto"));
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (cst != null) {
+                cst.close();
+            }
+            conexion.close();
+        }
+        return respuesta;
     }
 }

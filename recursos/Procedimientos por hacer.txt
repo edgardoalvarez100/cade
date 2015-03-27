@@ -1,0 +1,7 @@
+CONSULTAS
+
+1. Mostras todos los tickets sin responder de un empleado con respecto a sus categorias - recibe como parametro IDEMPLEADO
+2.Mostrars cantidad de tickets sin responder de un empleado con respecto a sus categorias - recibe como parametro IDEMPLEADO
+3. Mostrar ticket Por IDTICKET - recibe como parametro IDTICKET
+4.Mostrar las respuestas de un ticket y ordenar de forma ascende - parametro IDTICKET
+5.Insertar respuesta--- metodo ya creado;

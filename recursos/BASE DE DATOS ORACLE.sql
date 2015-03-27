@@ -11,7 +11,7 @@ Target Server Type    : ORACLE
 Target Server Version : 100200
 File Encoding         : 65001
 
-Date: 2015-03-13 09:53:34
+Date: 2015-03-26 19:39:35
 */
 
 
@@ -101,6 +101,8 @@ NOCACHE
 -- ----------------------------
 -- Records of RESPUESTAS
 -- ----------------------------
+INSERT INTO "EDGARDO"."RESPUESTAS" VALUES ('12', 'MENSAJE DE PRUEBA', '1', TO_DATE('2015-03-26 17:46:49', 'YYYY-MM-DD HH24:MI:SS'), '1');
+INSERT INTO "EDGARDO"."RESPUESTAS" VALUES ('13', 'PROBANDO MENSAJE', '1', TO_DATE('2015-03-26 19:10:18', 'YYYY-MM-DD HH24:MI:SS'), '1');
 INSERT INTO "EDGARDO"."RESPUESTAS" VALUES ('1', 'el presente mensaje es para mostrar porque la conexion no se puede realizar no se que pasa con todo esto', '1', TO_DATE('2015-03-10 14:21:44', 'YYYY-MM-DD HH24:MI:SS'), '1');
 INSERT INTO "EDGARDO"."RESPUESTAS" VALUES ('2', 'el presente mensaje es para mostrar porque la conexion no se puede realizar no se que pasa con todo esto', '1', TO_DATE('2015-03-10 14:22:51', 'YYYY-MM-DD HH24:MI:SS'), '2');
 INSERT INTO "EDGARDO"."RESPUESTAS" VALUES ('3', 'el presente mensaje es para mostrar porque la conexion no se puede realizar no se que pasa con todo esto', '1', TO_DATE('2015-03-10 16:46:21', 'YYYY-MM-DD HH24:MI:SS'), '3');
@@ -132,7 +134,7 @@ NOCACHE
 -- ----------------------------
 -- Records of TICKETS
 -- ----------------------------
-INSERT INTO "EDGARDO"."TICKETS" VALUES ('1', '1', '1', TO_DATE('2015-03-10 14:21:44', 'YYYY-MM-DD HH24:MI:SS'), '3', 'Conexion con la categoria');
+INSERT INTO "EDGARDO"."TICKETS" VALUES ('1', '1', '1', TO_DATE('2015-03-10 14:21:44', 'YYYY-MM-DD HH24:MI:SS'), '2', 'Conexion con la categoria');
 INSERT INTO "EDGARDO"."TICKETS" VALUES ('2', '1', '1', TO_DATE('2015-03-10 14:22:51', 'YYYY-MM-DD HH24:MI:SS'), '3', 'Conexion con la categoria');
 INSERT INTO "EDGARDO"."TICKETS" VALUES ('3', '1', '1', TO_DATE('2015-03-10 16:46:21', 'YYYY-MM-DD HH24:MI:SS'), '2', 'Conexion con la categoria');
 INSERT INTO "EDGARDO"."TICKETS" VALUES ('4', '1', '1', TO_DATE('2015-03-10 16:48:47', 'YYYY-MM-DD HH24:MI:SS'), '2', 'Conexion con la categoria');
@@ -189,6 +191,7 @@ NOCACHE
 -- Records of USUARIOS
 -- ----------------------------
 INSERT INTO "EDGARDO"."USUARIOS" VALUES ('9', 'Nabila', 'Lafaurie', 'cliente10@algo.com', 'e10adc3949ba59abbe56e057f20f883e', '3325', '325622', '3', 'soledad', '1', '1143116295');
+INSERT INTO "EDGARDO"."USUARIOS" VALUES ('10', 'Nabila', 'Lafaurie', 'cliente12@algo.com', 'e10adc3949ba59abbe56e057f20f883e', '3300 NE 191 ST', '7869253737', '3', 'aventura', '1', '6000');
 INSERT INTO "EDGARDO"."USUARIOS" VALUES ('7', 'Empleado', 'Anonimo', 'empleado@algo.com', 'e10adc3949ba59abbe56e057f20f883e', 'Cl 45-5682', '3728672', '2', 'Soledad', '1', '1143116230');
 INSERT INTO "EDGARDO"."USUARIOS" VALUES ('8', '?', '?', '?', '?', '?', '?', '3', '?', '1', '?');
 INSERT INTO "EDGARDO"."USUARIOS" VALUES ('1', 'EDGARDO JOSE', 'ALVAREZ BERDUGO', 'edgardoalvarez100@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'CL 45A 24-56', '3012151887', '1', 'BARRANQUILLA', '1', '1143116274');
@@ -227,6 +230,45 @@ AS
 /
 
 -- ----------------------------
+-- Procedure structure for "EDGARDO"."OBTENERUSUARIOS"
+-- ----------------------------
+CREATE OR REPLACE PROCEDURE "EDGARDO"."OBTENERUSUARIOS" (
+CURSOR_USUARIO OUT SYS_REFCURSOR
+
+)
+AS
+BEGIN
+OPEN CURSOR_USUARIO FOR
+SELECT u.IDUSUARIO, u.NOMBRE, u.APELLIDOS, t.TIPOUSUARIO, u.TELEFONO, u.CEDULA, u.CORREO, u.CIUDAD
+FROM usuarios u INNER JOIN tipousuario t ON u.idtipo=t.idtipo WHERE activo=1;
+
+END;
+/
+
+-- ----------------------------
+-- Procedure structure for "EDGARDO"."REGISTRARUSUARIO"
+-- ----------------------------
+CREATE OR REPLACE PROCEDURE "EDGARDO"."REGISTRARUSUARIO" (
+nom IN VARCHAR2,
+ape IN VARCHAR2,
+email IN VARCHAR2, 
+pass IN VARCHAR2, 
+dir IN VARCHAR2, 
+tel IN VARCHAR2, 
+tipo IN NUMBER, 
+ciud IN VARCHAR2, 
+acti IN NUMBER, 
+cedu IN VARCHAR2, 
+retorna OUT NUMBER)
+AS
+BEGIN
+	retorna:=0;
+	INSERT INTO usuarios values(inc_usuario_pk.NextVal,nom,ape,email,pass,dir,tel,tipo,ciud,acti,cedu);
+	retorna:=1;
+END;
+/
+
+-- ----------------------------
 -- Procedure structure for "EDGARDO"."RESPONDERTICKET"
 -- ----------------------------
 CREATE OR REPLACE PROCEDURE "EDGARDO"."RESPONDERTICKET" (
@@ -236,11 +278,19 @@ IDTICKE NUMBER,
 RETORNA OUT NUMBER
 )
 AS
-tipo number;
+
+CURSOR tick is 
+SELECT t.IDTIPO  
+FROM USUARIOS u INNER JOIN TIPOUSUARIO t ON u.IDTIPO=t.IDTIPO 
+WHERE u.IDUSUARIO=IDUSUARIO;
+TIPO NUMBER;
 BEGIN
 	RETORNA :=  0; 
 	INSERT INTO RESPUESTAS VALUES(INC_RESPUESTA_PK.NEXTVAL, MENSAJE, IDUSUARIO, SYSDATE,IDTICKE);
-  SELECT t.IDTIPO INTO tipo FROM USUARIOS u INNER JOIN TIPOUSUARIO t ON u.IDTIPO=t.IDTIPO WHERE u.IDUSUARIO=IDUSUARIO;
+
+  FOR i IN tick LOOP
+	TIPO := i.IDTIPO;
+	END LOOP;
   --Si responde un cliente se cambia el estado a NO respondido
   IF TIPO=3 THEN
   UPDATE TICKETS SET IDESTADO=2 where idticket=IDTICKE;
@@ -266,7 +316,7 @@ CREATE SEQUENCE "EDGARDO"."INC_RESPUESTA_PK"
  INCREMENT BY 1
  MINVALUE 1
  MAXVALUE 999999999999999999999999999
- START WITH 10
+ START WITH 14
  NOCACHE ;
 
 -- ----------------------------
@@ -288,7 +338,7 @@ CREATE SEQUENCE "EDGARDO"."INC_USUARIO_PK"
  INCREMENT BY 1
  MINVALUE 1
  MAXVALUE 999999999999999999999999999
- START WITH 10
+ START WITH 11
  NOCACHE ;
 
 -- ----------------------------
