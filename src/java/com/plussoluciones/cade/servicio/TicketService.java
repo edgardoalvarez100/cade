@@ -4,6 +4,7 @@ import com.plussoluciones.cade.bean.Respuesta;
 import com.plussoluciones.cade.bean.Ticket;
 import com.plussoluciones.cade.dao.TicketDao;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jws.WebMethod;
@@ -63,7 +64,7 @@ public class TicketService {
     }
     
     @WebMethod(operationName = "obtenerRespuestasPorIdTicket")
-    public Respuesta obtenerRespuestasPorIdTicket(@WebParam(name = "idTicket" ) int idTicket) {
+    public List <Respuesta> obtenerRespuestasPorIdTicket(@WebParam(name = "idTicket" ) int idTicket) {
         try {
             return ticketDao.obtenerRespuestasPorIdTicket(idTicket);
         } catch (SQLException ex) {

@@ -8,6 +8,8 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import oracle.jdbc.OracleCallableStatement;
@@ -142,11 +144,12 @@ public class TicketDao extends ConexionOracle {
         return respuesta;
     }
     
-      public Respuesta obtenerRespuestasPorIdTicket(int idTicket) throws SQLException {
+      public List<Respuesta> obtenerRespuestasPorIdTicket(int idTicket) throws SQLException {
         String sql = "{call ObtenerRespuestasPorIdTicket(?,?)}";
         CallableStatement cst = null;
         ResultSet rs = null;
-        Respuesta respuesta = new Respuesta();
+        List<Respuesta> lista = new ArrayList();
+        
         try {
             conexion = conectar();
             cst = conexion.prepareCall(sql);
@@ -156,13 +159,14 @@ public class TicketDao extends ConexionOracle {
             rs = ((OracleCallableStatement) cst).getCursor(2);
             while (rs.next()) {
                 Usuario usuario = new Usuario();
-                
+                Respuesta respuesta = new Respuesta();
                 usuario.setTipo(rs.getString("tipousuario"));
                 usuario.setNombre(rs.getString("nombre"));
                 usuario.setApellidos(rs.getString("apellidos"));
                 respuesta.setUsuario(usuario);
                 respuesta.setFecha(rs.getString("fecha"));
-                respuesta.setRespuesta(rs.getString("respuesta"));                
+                respuesta.setRespuesta(rs.getString("respuesta"));
+                lista.add(respuesta);
             }
 
         } catch (Exception ex) {
@@ -173,6 +177,6 @@ public class TicketDao extends ConexionOracle {
             }
             conexion.close();
         }
-        return respuesta;
+        return lista;
     }
 }
