@@ -16,6 +16,7 @@ public class Ticket {
     private String fecha;
     private int idEstado;
     private String asunto;
+    private Usuario usuario;
 
     public int getIdTicket() {
         return idTicket;
@@ -55,6 +56,14 @@ public class Ticket {
 
     public void setAsunto(String asunto) {
         this.asunto = asunto;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
     
     

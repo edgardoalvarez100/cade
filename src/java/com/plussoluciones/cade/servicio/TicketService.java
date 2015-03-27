@@ -1,5 +1,6 @@
 package com.plussoluciones.cade.servicio;
 
+import com.plussoluciones.cade.bean.Respuesta;
 import com.plussoluciones.cade.bean.Ticket;
 import com.plussoluciones.cade.dao.TicketDao;
 import java.sql.SQLException;
@@ -52,9 +53,19 @@ public class TicketService {
         return null;
     }
 @WebMethod(operationName = "obtenerTicketPorId")
-    public Ticket obtenerTicketPorId(@WebParam(name = "idTicket") int idTicket) {
+    public Ticket obtenerTicketPorId(@WebParam(name = "idTicket" ) int idTicket) {
         try {
             return ticketDao.obtenerTicketPorId(idTicket);
+        } catch (SQLException ex) {
+            Logger.getLogger(TicketService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    @WebMethod(operationName = "obtenerRespuestasPorIdTicket")
+    public Respuesta obtenerRespuestasPorIdTicket(@WebParam(name = "idTicket" ) int idTicket) {
+        try {
+            return ticketDao.obtenerRespuestasPorIdTicket(idTicket);
         } catch (SQLException ex) {
             Logger.getLogger(TicketService.class.getName()).log(Level.SEVERE, null, ex);
         }
